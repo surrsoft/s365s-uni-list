@@ -10,7 +10,7 @@ function Layout() {
       }}>
         <Link to="/" style={{ marginRight: '1rem' }}>Главная</Link>
         <Link to="/about" style={{ marginRight: '1rem' }}>О нас</Link>
-        <Link to="/uni-list">Список университетов</Link>
+        <Link to="/uni-list">uni-list</Link>
       </nav>
       <main style={{ padding: '1rem' }}>
         <Outlet />
