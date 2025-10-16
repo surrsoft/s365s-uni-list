@@ -39,8 +39,19 @@ interface DpResult2Type extends FailType {
     result: 'success' | 'fail';
 }
 
+interface DpFilterType {
+    search?: StrFullType;
+}
+
+type DpSortType = 'asc' | 'desc';
+
+
+/**
+ * 
+ */
 export interface DpInterface<TData = any> {
-    pageGet(params: { page: NumNilPlus, pageSize: NumOnePlus }): Promise<DpResultType<TData[]>>;
-    itemDelete(params: { id: StrFullType[] }): Promise<DpResult2Type>;
+    /** ID [[251016220600]] */
+    dataGet(params: { start: NumNilPlus, step: NumOnePlus, filter?: DpFilterType, sort?: DpSortType }): Promise<DpResultType<TData[]>>;
+    itemDelete(params: { id: StrFullType }): Promise<DpResult2Type>;
 }
 
