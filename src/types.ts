@@ -5,4 +5,10 @@ export type NumNilPlus = number;
 export type NumOnePlus = number;
 
 /** строка удовлетворяющая всем следующим условиям: 1) длина 1+ 2) не состоит из одних пробелов */
-export type StrFullType = string;
+export type DpId = string;
+
+/** начальный индекс получения данных */
+export type DpStartIndex = NumNilPlus;
+
+/** шаг получения данных */
+export type DpStep = NumOnePlus;

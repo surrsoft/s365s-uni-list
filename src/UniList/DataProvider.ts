@@ -5,14 +5,13 @@
  * - удаление элементов из списка
  */
 
-import type { NumNilPlus, NumOnePlus, StrFullType } from "../types";
+import type { NumNilPlus, NumOnePlus, DpStartIndex, DpStep, DpId } from "../types";
 
 /**
  * 
  */
-export class DataProvider {
+export class DataProvider<TData = any> implements DpInterface<TData> {
     private static instance: DataProvider;
-    private data: any[] = [];
     private constructor() {
     }
 
@@ -23,11 +22,23 @@ export class DataProvider {
         return DataProvider.instance;
     }
 
+    dataGet(params: { start: DpStartIndex; step: DpStep; filter?: DpFilterType; sort?: DpSortType; }): Promise<DpResultType<TData[]>> {
+        return Promise.resolve({
+            result: 'success',
+            data: [],
+        });
+    }
+
+    itemDelete(params: { id: DpId }): Promise<DpResult2Type> {
+        return Promise.resolve({
+            result: 'success',
+        });
+    }
 }
 
 interface FailType {
-    failMsg?: StrFullType;
-    failCode?: StrFullType;
+    failMsg?: DpId;
+    failCode?: DpId;
 }
 
 interface DpResultType<TData = any> extends FailType {
@@ -40,7 +51,7 @@ interface DpResult2Type extends FailType {
 }
 
 interface DpFilterType {
-    search?: StrFullType;
+    search?: DpId;
 }
 
 type DpSortType = 'asc' | 'desc';
@@ -52,6 +63,6 @@ type DpSortType = 'asc' | 'desc';
 export interface DpInterface<TData = any> {
     /** ID [[251016220600]] */
     dataGet(params: { start: NumNilPlus, step: NumOnePlus, filter?: DpFilterType, sort?: DpSortType }): Promise<DpResultType<TData[]>>;
-    itemDelete(params: { id: StrFullType }): Promise<DpResult2Type>;
+    itemDelete(params: { id: DpId }): Promise<DpResult2Type>;
 }
 
