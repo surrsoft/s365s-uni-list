@@ -18,11 +18,9 @@ const JSON_SERVER_ITEMS_URL = `${JSON_SERVER_URL}/items`;
 export class DataProviderJson<TData = any> implements UnPInterface<TData> {
     private static instance: DataProviderJson;
 
-    private config?: DpConfigType;
     private unStep?: UnStep;
 
     public constructor(config: DpConfigType) {
-        this.config = config;
         this.unStep = config.unStep || 10;
     }
 
