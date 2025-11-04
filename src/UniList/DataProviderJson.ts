@@ -5,8 +5,9 @@
  * - удаление элементов из списка
  */
 
+import type { JSX } from "react";
 import type { UnStep } from "../types";
-import type { UtId } from "../types-ut";
+import type { UtId, UtWithid } from "../types-ut";
 import type { DpConfigType, UnPInterface, Dp3pResult, Dp2pResult, UnFiltersUiData, Dp1pParams } from "./dpTypes";
 
 const JSON_SERVER_URL = 'http://localhost:22157';
@@ -15,7 +16,7 @@ const JSON_SERVER_ITEMS_URL = `${JSON_SERVER_URL}/items`;
 /**
  * Имплементация под json-server
  */
-export class DataProviderJson<TData = unknown> implements UnPInterface<TData> {
+export class DataProviderJson<TData extends UtWithid = UtWithid> implements UnPInterface<TData> {
     private static instance: DataProviderJson;
 
     private readonly unStep: UnStep;
@@ -38,7 +39,7 @@ export class DataProviderJson<TData = unknown> implements UnPInterface<TData> {
     async upPackageDataGet({ start, filters }: Dp1pParams): Promise<Dp2pResult<TData[]>> {
         const limit = this.unStep;
         const response = await fetch(`${JSON_SERVER_ITEMS_URL}?_start=${start}&_limit=${limit}`);
-        
+
         if (!response.ok) {
             const error = new Error(`HTTP ${response.status}: ${response.statusText}`);
             throw error;
@@ -61,6 +62,10 @@ export class DataProviderJson<TData = unknown> implements UnPInterface<TData> {
         return Promise.resolve({
             result: 'success',
         });
+    }
+
+    jsxGet({ item }: { item: TData }): JSX.Element {
+        return <div>hello {item.id}</div>;
     }
 }
 

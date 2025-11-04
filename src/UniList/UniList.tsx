@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import type { UnPInterface } from './dpTypes';
 import { Un1nListElemWr } from './Un1nListElemWr';
+import type { UtWithid } from '../types-ut';
 
 /**
  *
@@ -13,7 +14,7 @@ interface ULConfigType<TData = unknown> {
 /**
  * !un-list!
  */
-export function UniList<TData = unknown>({ dataProvider }: ULConfigType<TData>) {
+export function UniList<TData extends UtWithid = UtWithid>({ dataProvider }: ULConfigType<TData>) {
 
     const [startIndex, setStartIndex] = useState(0);
 
@@ -44,8 +45,8 @@ export function UniList<TData = unknown>({ dataProvider }: ULConfigType<TData>) 
     if (data.length < 1) return <div>пустой список</div>
 
     return <div>
-        {data.map((el, index) => {
-            return <Un1nListElemWr key={index}>
+        {data.map((el) => {
+            return <Un1nListElemWr key={el.id}>
                 hello
             </Un1nListElemWr>
         })}

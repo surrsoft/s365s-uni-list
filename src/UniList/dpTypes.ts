@@ -1,11 +1,12 @@
+import type { JSX } from "react";
 import type { UnStep } from "../types";
-import type { UtNilNum, UtId } from "../types-ut";
+import type { UtNilNum, UtId, UtWithid } from "../types-ut";
 
 
 /**
  * !un-p-interface! - интерфейс провайдера !un-provider!
  */
-export interface UnPInterface<TData = unknown> {
+export interface UnPInterface<TData extends UtWithid = UtWithid> extends Un2nUiInterface<TData> {
 
     /** !un-step! */
     unStepGet(): UnStep;
@@ -20,6 +21,10 @@ export interface UnPInterface<TData = unknown> {
 
     /** Удаление элемента из списка */
     itemDelete(params: { id: UtId; }): Promise<Dp3pResult>;
+}
+
+export interface Un2nUiInterface<TData extends UtWithid = UtWithid> {
+    jsxGet(params: { item: TData }): React.ReactNode;
 }
 
 // --- 
