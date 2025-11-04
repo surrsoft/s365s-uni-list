@@ -9,60 +9,64 @@ export interface UnPInterface<TData = any> {
     /** 
      * Получение пакета данных !un-package!
      * ID [[251016220600]] */
-    upPackageDataGet(params: Dp1pParams): Promise<DpResultType<TData[]>>;
+    upPackageDataGet(params: Dp1pParams): Promise<Dp2pResult<TData[]>>;
 
     /** Получение данных для !un-filters-ui! */
     unInitialFiltersUiDataGet(): UnFiltersUiData;
 
     /** Удаление элемента из списка */
-    itemDelete(params: { id: UtId; }): Promise<DpResult2Type>;
+    itemDelete(params: { id: UtId; }): Promise<Dp3pResult>;
 }
 
 // --- 
 
-interface Dp1pParams { start: UtNilNum; filter?: UnSfData; sort?: DpSortType; }
+export interface Dp1pParams { start: UtNilNum; filters?: UnSfData; sort?: DpSortType; }
 
-interface DpFailType {
+interface Dp4pFail {
     failMsg?: UtId;
     failCode?: UtId;
 }
 
-export interface DpResultType<TData = any> extends DpFailType {
+export interface Dp2pResult<TData = any> extends Dp4pFail {
     result: 'success' | 'fail';
     data?: TData;
+    hasMore?: boolean;
 }
 
-export interface DpResult2Type extends DpFailType {
+export interface Dp3pResult extends Dp4pFail {
     result: 'success' | 'fail';
 }
 
 // --- для !un-filters-ui!
 
-/** !un-f-id! одельного !un-f-input! */
+/** !un-f-id! отдельного !un-f-input! */
 type UnFId = UtId;
 
 /** Сущность представляющая !un-f-input! (инпут фильтрации, единичный элемент в !un-filters-ui!) */
 export interface UnFInputData {
     id: UnFId;
-    /** 
-     * Тип инпута фильтрации
-     * 
-     * SYNC [251103214301]
-     * 
-     * searchCommon - дефолтный быстрый поиск по основным полям;
-     * select-one - выбор одного значения из списка;
-     * select-many - выбор нескольких значений из списка;
-     * checkbox - чекбокс;
-     * date - дата;
-     * number - число;
-     * text - текст;
-    */
-    type: 'searchCommon' | 'select-one' | 'select-many' | 'checkbox' | 'date' | 'number' | 'text';
+
+    type: UnInpType;
     /** заголовок для UI */
     uiTitle?: string;
     /** описание для UI */
     uiDesc?: string;
 }
+
+/** 
+ * Тип инпута фильтрации - !un-inp-type!
+ * 
+ * SYNC [251103214301]
+ * 
+ * searchCommon - дефолтный быстрый поиск по основным полям;
+ * select-one - выбор одного значения из списка;
+ * select-many - выбор нескольких значений из списка;
+ * checkbox - чекбокс;
+ * date - дата;
+ * number - число;
+ * text - текст;
+*/
+export type UnInpType = 'searchCommon' | 'select-one' | 'select-many' | 'checkbox' | 'date' | 'number' | 'text';
 
 /** Сущность представляющая данные для !un-filters-ui! (UI через который пользователь настраивает фильтрацию списка) */
 export interface UnFiltersUiData {
@@ -75,7 +79,7 @@ export interface UnFiltersUiData {
 export interface UnSfData {
     items?: {
         id: UnFId;
-        type: UnFInputData['type'];
+        type: UnInpType;
         // SYNC [251103214301] ключи
         value?: {
             'searchCommon'?: { value: string };
