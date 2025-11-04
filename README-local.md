@@ -6,6 +6,7 @@
 
 ```
 - npm install json-server
+- npm install @tanstack/react-query
 ```
 
 # генерация файла db.json
