@@ -1,14 +1,7 @@
-/** целое число, 0+ */
-export type NumNilPlus = number;
-
-/** целое число, 1+ */
-export type NumOnePlus = number;
-
-/** строка удовлетворяющая всем следующим условиям: 1) длина 1+ 2) не состоит из одних пробелов */
-export type DpId = string;
+import type { UtNilNum, UtNum } from "./types-ut";
 
 /** начальный индекс получения данных */
-export type DpStartIndex = NumNilPlus;
+export type DpStartIndex = UtNilNum;
 
-/** шаг получения данных */
-export type DpStep = NumOnePlus;
+/** !un-step! шаг получения данных; размер пакета !un-package! */
+export type UnStep = UtNum;

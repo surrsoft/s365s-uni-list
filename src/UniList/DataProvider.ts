@@ -5,64 +5,49 @@
  * - удаление элементов из списка
  */
 
-import type { NumNilPlus, NumOnePlus, DpStartIndex, DpStep, DpId } from "../types";
+import type { DpStartIndex, UnStep } from "../types";
+import type { UtId } from "../types-ut";
+import type { DpConfigType, UnPInterface, DpResult2Type, DpResultType, DpSortType, UnFiltersUiData } from "./dpTypes";
 
 /**
  * 
  */
-export class DataProvider<TData = any> implements DpInterface<TData> {
+export class DataProvider<TData = any> implements UnPInterface<TData> {
     private static instance: DataProvider;
-    private constructor() {
+
+    private config?: DpConfigType;
+    private unStep?: UnStep;
+
+    public constructor(config: DpConfigType) {
+        this.config = config;
+        this.unStep = config.unStep;
     }
 
-    public static getInstance(): DataProvider {
+    public static getInstance(config: DpConfigType): DataProvider {
         if (!DataProvider.instance) {
-            DataProvider.instance = new DataProvider();
+            DataProvider.instance = new DataProvider(config);
         }
         return DataProvider.instance;
     }
 
-    dataGet(params: { start: DpStartIndex; step: DpStep; filter?: DpFilterType; sort?: DpSortType; }): Promise<DpResultType<TData[]>> {
+    upPackageDataGet(params: { start: DpStartIndex; filter?: any; sort?: DpSortType; }): Promise<DpResultType<TData[]>> {
         return Promise.resolve({
             result: 'success',
             data: [],
         });
     }
 
-    itemDelete(params: { id: DpId }): Promise<DpResult2Type> {
+    unInitialFiltersUiDataGet(): UnFiltersUiData {
+        return {
+            items: [],
+        };
+    }
+
+    itemDelete(params: { id: UtId }): Promise<DpResult2Type> {
         return Promise.resolve({
             result: 'success',
         });
     }
 }
 
-interface FailType {
-    failMsg?: DpId;
-    failCode?: DpId;
-}
-
-interface DpResultType<TData = any> extends FailType {
-    result: 'success' | 'fail';
-    data?: TData;
-}
-
-interface DpResult2Type extends FailType {
-    result: 'success' | 'fail';
-}
-
-interface DpFilterType {
-    search?: DpId;
-}
-
-type DpSortType = 'asc' | 'desc';
-
-
-/**
- * 
- */
-export interface DpInterface<TData = any> {
-    /** ID [[251016220600]] */
-    dataGet(params: { start: NumNilPlus, step: NumOnePlus, filter?: DpFilterType, sort?: DpSortType }): Promise<DpResultType<TData[]>>;
-    itemDelete(params: { id: DpId }): Promise<DpResult2Type>;
-}
 
