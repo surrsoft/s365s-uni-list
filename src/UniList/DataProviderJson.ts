@@ -5,20 +5,20 @@
  * - удаление элементов из списка
  */
 
-import type { DpStartIndex, UnStep } from "../types";
+import type { UnStep } from "../types";
 import type { UtId } from "../types-ut";
-import type { DpConfigType, UnPInterface, Dp3pResult, Dp2pResult, DpSortType, UnFiltersUiData, Dp1pParams } from "./dpTypes";
+import type { DpConfigType, UnPInterface, Dp3pResult, Dp2pResult, UnFiltersUiData, Dp1pParams } from "./dpTypes";
 
 const JSON_SERVER_URL = 'http://localhost:22157';
 const JSON_SERVER_ITEMS_URL = `${JSON_SERVER_URL}/items`;
 
 /**
- * 
+ * Имплементация под json-server
  */
-export class DataProviderJson<TData = any> implements UnPInterface<TData> {
+export class DataProviderJson<TData = unknown> implements UnPInterface<TData> {
     private static instance: DataProviderJson;
 
-    private unStep?: UnStep;
+    private readonly unStep: UnStep;
 
     public constructor(config: DpConfigType) {
         this.unStep = config.unStep || 10;
@@ -31,9 +31,19 @@ export class DataProviderJson<TData = any> implements UnPInterface<TData> {
         return DataProviderJson.instance;
     }
 
+    unStepGet(): UnStep {
+        return this.unStep;
+    }
+
     async upPackageDataGet({ start, filters }: Dp1pParams): Promise<Dp2pResult<TData[]>> {
         const limit = this.unStep;
         const response = await fetch(`${JSON_SERVER_ITEMS_URL}?_start=${start}&_limit=${limit}`);
+        
+        if (!response.ok) {
+            const error = new Error(`HTTP ${response.status}: ${response.statusText}`);
+            throw error;
+        }
+
         const data = await response.json() as TData[];
         return {
             result: 'success',

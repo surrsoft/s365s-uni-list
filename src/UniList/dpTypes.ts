@@ -1,11 +1,15 @@
 import type { UnStep } from "../types";
-import type { UtNilNum, UtNum, UtId } from "../types-ut";
+import type { UtNilNum, UtId } from "../types-ut";
 
 
 /**
  * !un-p-interface! - интерфейс провайдера !un-provider!
  */
-export interface UnPInterface<TData = any> {
+export interface UnPInterface<TData = unknown> {
+
+    /** !un-step! */
+    unStepGet(): UnStep;
+
     /** 
      * Получение пакета данных !un-package!
      * ID [[251016220600]] */
@@ -30,6 +34,8 @@ interface Dp4pFail {
 export interface Dp2pResult<TData = any> extends Dp4pFail {
     result: 'success' | 'fail';
     data?: TData;
+    /** ошибка; когда result === 'fail' */
+    error?: any;
     hasMore?: boolean;
 }
 

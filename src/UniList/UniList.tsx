@@ -1,42 +1,53 @@
-import { useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { DataProviderJson } from "./DataProviderJson";
+import { useMemo, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import type { UnPInterface } from './dpTypes';
+import { Un1nListElemWr } from './Un1nListElemWr';
 
 /**
- * 
+ *
  */
-interface ULConfigType {
-    pageSize?: number,
+interface ULConfigType<TData = unknown> {
+    dataProvider: UnPInterface<TData>,
 }
 
 /**
- * 
+ * !un-list!
  */
-export function UniList({ pageSize = 10 }: ULConfigType) {
+export function UniList<TData = unknown>({ dataProvider }: ULConfigType<TData>) {
 
-    const dataProvider = useMemo(() => {
-        const dataProvider = DataProviderJson.getInstance({ unStep: pageSize });
-        return dataProvider;
-    }, [pageSize]);
+    const [startIndex, setStartIndex] = useState(0);
 
-    const params = useMemo(() => ({ start: 0 }), []);
-
-    const { data, isLoading, error } = useQuery({
-        queryKey: ['251104114700-upPackageDataGet'],
+    const { data: pgData, isLoading: pgIsLoading, error: pgError, isError: pgIsError } = useQuery({
+        queryKey: ['251104114700-upPackageDataGet', startIndex],
         queryFn: async () => {
-            return await dataProvider.upPackageDataGet(params);
+            return await dataProvider.upPackageDataGet({ start: startIndex });
         },
     });
 
-    console.log('!!-!!-!! 20251104113408', { data, isLoading, error }); // del+
+    console.log('!!-!!-!! 20251104113408', { pgData, pgIsLoading, pgError, pgIsError }); // del+
 
-    if (isLoading) {
+    if (pgIsLoading) {
         return <div>Загрузка...</div>;
     }
 
-    if (error) {
-        return <div>Ошибка загрузки данных</div>;
+    if (pgIsError) {
+        const errorMessage = pgError instanceof Error ? pgError.message : 'Ошибка загрузки данных';
+        return <div>Ошибка: {errorMessage}</div>;
     }
 
-    return <div>UniList</div>
+    if (pgData && pgData.result === 'fail') {
+        return <div>Ошибка: {pgData.failMsg || 'Не удалось загрузить данные'}</div>;
+    }
+
+    const data = pgData?.data || [];
+
+    if (data.length < 1) return <div>пустой список</div>
+
+    return <div>
+        {data.map((el, index) => {
+            return <Un1nListElemWr key={index}>
+                hello
+            </Un1nListElemWr>
+        })}
+    </div>;
 }
