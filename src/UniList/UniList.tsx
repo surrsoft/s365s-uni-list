@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import type { UnPInterface } from './dpTypes';
+import type { UnPInterface, UnInpType } from './dpTypes';
 import { Un1nListElemWr } from './Un1nListElemWr';
 import type { UtWithid } from '../types-ut';
 import { unLocale } from './unLocale';
+import { UniListFilters } from './UniListFilters';
+import { useUniListFilters } from './useUniListFilters';
 
 /**
  *
@@ -18,25 +20,32 @@ interface Un2nConfig<TData extends UtWithid = UtWithid> {
 export function UniList<TData extends UtWithid = UtWithid>({ dataProvider }: Un2nConfig<TData>) {
 
     const [startIndex, setStartIndex] = useState(0);
+    const [accumulatedData, setAccumulatedData] = useState<TData[]>([]);
+
+    // Получаем список доступных фильтров
+    const filtersUiData = useMemo(() => {
+        return dataProvider.unInitialFiltersUiDataGet();
+    }, [dataProvider]);
+
+    // Управление фильтрами
+    const { filters, handleFilterChange } = useUniListFilters();
     
     const { data: pgData, isLoading: pgIsLoading, error: pgError, isError: pgIsError } = useQuery({
-        queryKey: ['251104114700-upPackageDataGet', startIndex],
+        queryKey: ['251104114700-upPackageDataGet', startIndex, filters],
         queryFn: async () => {
-            return await dataProvider.upPackageDataGet({ start: startIndex });
+            return await dataProvider.upPackageDataGet({ start: startIndex, filters });
         },
     });
 
 
-    // --- accumulatedData - накопленные данные; полученные данные аккумулируются в этом массиве
+    // --- accumulatedData - полученные данные аккумулируются в этом массиве
 
-    const [accumulatedData, setAccumulatedData] = useState<TData[]>([]);
-
-    // Сбрасываем накопленные данные при возврате к началу списка
+    // Сбрасываем накопленные данные при возврате к началу списка или изменении фильтров
     useEffect(() => {
         if (startIndex === 0) {
             setAccumulatedData([]);
         }
-    }, [startIndex]);
+    }, [startIndex, filters]);
 
     // Добавляем новые данные к накопленным
     useEffect(() => {
@@ -78,10 +87,22 @@ export function UniList<TData extends UtWithid = UtWithid>({ dataProvider }: Un2
 
     if (accumulatedData.length < 1 && !pgIsLoading) return <div>{unLocale.emptyList}</div>
 
+    // Обработчик изменения фильтра с сбросом данных
+    const onFilterChange = (filterId: string, filterType: UnInpType, value: any) => {
+        handleFilterChange(filterId, filterType, value, () => {
+            setStartIndex(0);
+            setAccumulatedData([]);
+        });
+    };
+
     return <div>
 
         {/* блок с фильтрами */}
-
+        <UniListFilters
+            filtersUiData={filtersUiData}
+            filters={filters}
+            onFilterChange={onFilterChange}
+        />
 
         {/* список элементов */}
         {accumulatedData.map((el) => {

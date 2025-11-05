@@ -55,7 +55,7 @@ type UnFId = UtId;
 /** Сущность представляющая !un-f-input! (инпут фильтрации, единичный элемент в !un-filters-ui!) */
 export interface UnFInputData {
     id: UnFId;
-
+    /** тип инпута */
     type: UnInpType;
     /** заголовок для UI */
     uiTitle?: string;

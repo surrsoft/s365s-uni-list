@@ -58,7 +58,9 @@ export class DataProviderJson<TData extends UtWithid = UtWithid> implements UnPI
 
     unInitialFiltersUiDataGet(): UnFiltersUiData {
         return {
-            items: [],
+            items: [
+                
+            ],
         };
     }
 
