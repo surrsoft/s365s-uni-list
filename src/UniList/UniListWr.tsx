@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { UniList } from './UniList.tsx';
-import { DataProviderJson } from './DataProviderJson.ts';
+import { DataProviderJson } from './DataProviderJson.tsx';
 import type { Dp5pItem } from './types.ts';
 import type { UnPInterface } from './dpTypes.ts';
 

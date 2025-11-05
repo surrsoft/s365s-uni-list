@@ -5,7 +5,7 @@
  * - удаление элементов из списка
  */
 
-import type { JSX } from "react";
+import React from "react";
 import type { UnStep } from "../types";
 import type { UtId, UtWithid } from "../types-ut";
 import type { DpConfigType, UnPInterface, Dp3pResult, Dp2pResult, UnFiltersUiData, Dp1pParams } from "./dpTypes";
@@ -65,7 +65,7 @@ export class DataProviderJson<TData extends UtWithid = UtWithid> implements UnPI
     }
 
     jsxGet({ item }: { item: TData }): React.ReactNode {
-        return <div>hello {item.id}</div>;
+        return <>hello {item.id}</>;
     }
 }
 

@@ -46,8 +46,10 @@ export function UniList<TData extends UtWithid = UtWithid>({ dataProvider }: ULC
 
     return <div>
         {data.map((el) => {
+
+            const jsx = dataProvider.jsxGet({ item: el });
             return <Un1nListElemWr key={el.id}>
-                hello
+                {jsx}
             </Un1nListElemWr>
         })}
     </div>;
