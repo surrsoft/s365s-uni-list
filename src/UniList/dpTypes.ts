@@ -1,4 +1,3 @@
-import type { JSX } from "react";
 import type { UnStep } from "../types";
 import type { UtNilNum, UtId, UtWithid } from "../types-ut";
 

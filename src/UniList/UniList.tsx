@@ -79,6 +79,11 @@ export function UniList<TData extends UtWithid = UtWithid>({ dataProvider }: Un2
     if (accumulatedData.length < 1 && !pgIsLoading) return <div>{unLocale.emptyList}</div>
 
     return <div>
+
+        {/* блок с фильтрами */}
+
+
+        {/* список элементов */}
         {accumulatedData.map((el) => {
             const jsx = dataProvider.jsxGet({ item: el });
             return <Un1nListElemWr key={el.id}>
