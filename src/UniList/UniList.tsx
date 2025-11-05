@@ -3,18 +3,19 @@ import { useQuery } from '@tanstack/react-query';
 import type { UnPInterface } from './dpTypes';
 import { Un1nListElemWr } from './Un1nListElemWr';
 import type { UtWithid } from '../types-ut';
+import { unLocale } from './unLocale';
 
 /**
  *
  */
-interface ULConfigType<TData = unknown> {
+interface Un2nConfig<TData extends UtWithid = UtWithid> {
     dataProvider: UnPInterface<TData>,
 }
 
 /**
  * !un-list!
  */
-export function UniList<TData extends UtWithid = UtWithid>({ dataProvider }: ULConfigType<TData>) {
+export function UniList<TData extends UtWithid = UtWithid>({ dataProvider }: Un2nConfig<TData>) {
 
     const [startIndex, setStartIndex] = useState(0);
 
@@ -28,29 +29,32 @@ export function UniList<TData extends UtWithid = UtWithid>({ dataProvider }: ULC
     console.log('!!-!!-!! 20251104113408', { pgData, pgIsLoading, pgError, pgIsError }); // del+
 
     if (pgIsLoading) {
-        return <div>Загрузка...</div>;
+        return <div>{unLocale.loading}</div>;
     }
 
     if (pgIsError) {
-        const errorMessage = pgError instanceof Error ? pgError.message : 'Ошибка загрузки данных';
-        return <div>Ошибка: {errorMessage}</div>;
+        const errorMessage = pgError instanceof Error ? pgError.message : unLocale.errorLoading;
+        return <div>{unLocale.errorPrefix}{errorMessage}</div>;
     }
 
     if (pgData && pgData.result === 'fail') {
-        return <div>Ошибка: {pgData.failMsg || 'Не удалось загрузить данные'}</div>;
+        return <div>{unLocale.errorPrefix}{pgData.failMsg || unLocale.errorLoadFailed}</div>;
     }
 
+    console.log('!!-!!-!! 20251105214739', {pgData}); // del+
     const data = pgData?.data || [];
+    const hasMore = pgData?.hasMore || false;
+    const step = dataProvider.unStepGet();
 
-    if (data.length < 1) return <div>пустой список</div>
+    if (data.length < 1) return <div>{unLocale.emptyList}</div>
 
     return <div>
         {data.map((el) => {
-
             const jsx = dataProvider.jsxGet({ item: el });
             return <Un1nListElemWr key={el.id}>
                 {jsx}
             </Un1nListElemWr>
         })}
+        {hasMore && <button onClick={() => setStartIndex(startIndex + step)}>{unLocale.loadMore}</button>}
     </div>;
 }

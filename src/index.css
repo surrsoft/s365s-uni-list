@@ -11,6 +11,13 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Цвета для элементов списка - темная тема */
+  --list-border-color: rgba(255, 255, 255, 0.1);
+  --list-bg-color: rgba(255, 255, 255, 0.05);
+  --list-hover-border-color: rgba(100, 108, 255, 0.5);
+  --list-hover-bg-color: rgba(100, 108, 255, 0.1);
+  --list-shadow-color: rgba(0, 0, 0, 0.2);
 }
 
 a {
@@ -57,6 +64,13 @@ button:focus-visible {
   :root {
     color: #213547;
     background-color: #ffffff;
+
+    /* Цвета для элементов списка - светлая тема */
+    --list-border-color: rgba(0, 0, 0, 0.1);
+    --list-bg-color: rgba(0, 0, 0, 0.02);
+    --list-hover-border-color: rgba(100, 108, 255, 0.3);
+    --list-hover-bg-color: rgba(100, 108, 255, 0.05);
+    --list-shadow-color: rgba(0, 0, 0, 0.2);
   }
   a:hover {
     color: #747bff;

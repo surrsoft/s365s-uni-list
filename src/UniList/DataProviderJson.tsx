@@ -38,7 +38,8 @@ export class DataProviderJson<TData extends UtWithid = UtWithid> implements UnPI
 
     async upPackageDataGet({ start, filters }: Dp1pParams): Promise<Dp2pResult<TData[]>> {
         const limit = this.unStep;
-        const response = await fetch(`${JSON_SERVER_ITEMS_URL}?_start=${start}&_limit=${limit}`);
+        const limitPlus = limit + 1;
+        const response = await fetch(`${JSON_SERVER_ITEMS_URL}?_start=${start}&_limit=${limitPlus}`);
 
         if (!response.ok) {
             const error = new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -46,9 +47,12 @@ export class DataProviderJson<TData extends UtWithid = UtWithid> implements UnPI
         }
 
         const data = await response.json() as TData[];
+        const hasMore = data.length > limit;
+        const dataSlice = data.slice(0, limit);
         return {
             result: 'success',
-            data: data as TData[],
+            data: dataSlice as TData[],
+            hasMore: hasMore,
         };
     }
 

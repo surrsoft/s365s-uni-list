@@ -1,0 +1,21 @@
+.wrapper {
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--list-border-color);
+  background-color: var(--list-bg-color);
+  transition: all 0.25s ease;
+}
+
+.wrapper:hover {
+  border-color: var(--list-hover-border-color);
+  background-color: var(--list-hover-bg-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--list-shadow-color);
+  cursor: pointer;
+}
+
+.wrapper:last-child {
+  margin-bottom: 0;
+}
+
