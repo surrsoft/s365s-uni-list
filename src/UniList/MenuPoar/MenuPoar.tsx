@@ -10,13 +10,13 @@ import SvgIconMenu from './SvgIconMenu';
 
 
 /**
- * Реализация списка пунктов меню
+ * Выпадающее меню. Выглядит как кнопка с тремя точками. При нажатии на кнопку появляется список пунктов меню.
  * 
  * @param data
  * @param cbOnSelected
  * @constructor
  */
-function MenuPoar({data, cbOnSelected}: PropsAtPoarType) {
+function MenuPoar({ data, cbOnSelected }: PropsAtPoarType) {
   const [$isListShowed, $isListShowedSet] = useState(false);
   const refBtnDropdown = useRef(null)
 
@@ -31,7 +31,7 @@ function MenuPoar({data, cbOnSelected}: PropsAtPoarType) {
     ev.stopPropagation()
     $isListShowedSet(false)
     if (cbOnSelected) {
-      cbOnSelected({idAction, idElem})
+      cbOnSelected({ idAction, idElem })
     }
   };
 
@@ -62,7 +62,7 @@ function MenuPoar({data, cbOnSelected}: PropsAtPoarType) {
         onClick={onClickHandler}
         className="asau54-dropdown__btn"
       >
-        <SvgIconMenu width="24px" height="24px"/>
+        <SvgIconMenu width="24px" height="24px" />
       </button>
       {!$isListShowed ? null : <div className="asau54-dropdown__content">
         {data?.items.map((el) => {
