@@ -1,13 +1,14 @@
 import type { ItemAtPoarType } from './ItemAtPoarType';
+import type { IdMenuDataPoarType } from './types';
 
 /**
  * данные описывающие пункты меню
  */
 export interface DataPoarType {
   /**
-   * идентификатор данных
+   * идентификатор данных для меню
    */
-  id: string
+  id: IdMenuDataPoarType
   /**
    * элементы меню
    */

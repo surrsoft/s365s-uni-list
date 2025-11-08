@@ -6,7 +6,7 @@ import { paths } from './constants'
 import { UniListPage } from './pages/UniListPage.tsx'
 import { UiDebug } from './pages/UiDebug'
 import { UiDebugIndex } from './pages/ui-debug/UiDebugIndex'
-import { MenuPoarDebug } from './pages/ui-debug/MenuPoarDebug'
+import { MenuPoarDebugPage } from './pages/ui-debug/MenuPoarDebugPage.tsx'
 import { UniListFiltersDebug } from './pages/ui-debug/UniListFiltersDebug'
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
           <Route path={paths.uniList.base} element={<UniListPage />} />
           <Route path={paths.uiDebug.base} element={<UiDebug />}>
             <Route index element={<UiDebugIndex />} />
-            <Route path={paths.uiDebug.components.menuPoar.base} element={<MenuPoarDebug />} />
+            <Route path={paths.uiDebug.components.menuPoar.base} element={<MenuPoarDebugPage />} />
             <Route path={paths.uiDebug.components.uniListFilters.base} element={<UniListFiltersDebug />} />
           </Route>
         </Route>

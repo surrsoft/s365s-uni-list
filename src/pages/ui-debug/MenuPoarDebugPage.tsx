@@ -3,16 +3,22 @@ import MenuPoar from '../../UniList/MenuPoar/MenuPoar';
 import type { DataPoarType } from '../../UniList/MenuPoar/types/DataPoarType';
 import type { SelectResultPoarType } from '../../UniList/MenuPoar/types/SelectResultPoarType';
 
+/**
+ * Данные для тестового меню
+ */
 const menuSampleData: DataPoarType = {
-  id: 'debug-menu',
+  id: 'id-debug-menu-1',
   items: [
-    { idAction: 'open', text: 'Открыть' },
-    { idAction: 'edit', text: 'Редактировать' },
-    { idAction: 'delete', text: 'Удалить' },
+    { idAction: 'id-open', text: 'Открыть' },
+    { idAction: 'id-edit', text: 'Редактировать' },
+    { idAction: 'id-delete', text: 'Удалить' },
   ],
 };
 
-export function MenuPoarDebug() {
+/**
+ * Страница для отладки компонента MenuPoar
+ */
+export function MenuPoarDebugPage() {
   const [menuSelection, setMenuSelection] = useState<SelectResultPoarType | null>(null);
 
   const handleMenuSelection = (selected: SelectResultPoarType) => {
@@ -41,5 +47,5 @@ export function MenuPoarDebug() {
   );
 }
 
-export default MenuPoarDebug;
+export default MenuPoarDebugPage;
 
