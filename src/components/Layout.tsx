@@ -11,7 +11,8 @@ function Layout() {
       }}>
         <Link to={paths.home.baseSlash} style={{ marginRight: '1rem' }}>Главная</Link>
         <Link to={paths.about.baseSlash} style={{ marginRight: '1rem' }}>О нас</Link>
-        <Link to={paths.uniList.baseSlash}>uni-list</Link>
+        <Link to={paths.uniList.baseSlash} style={{ marginRight: '1rem' }}>uni-list</Link>
+        <Link to={paths.uiDebug.baseSlash}>UI Debug</Link>
       </nav>
       <main style={{ padding: '1rem' }}>
         <Outlet />

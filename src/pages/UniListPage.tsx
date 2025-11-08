@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
-import { UniList } from './UniList.tsx';
-import { DataProviderJson } from './DataProviderJson.tsx';
-import type { Dp5pItem } from './types.ts';
-import type { UnPInterface } from './dpTypes.ts';
+import { UniList } from '../UniList/UniList.tsx';
+import { DataProviderJson } from '../UniList/DataProviderJson.tsx';
+import type { Dp5pItem } from '../UniList/types.ts';
+import type { UnPInterface } from '../UniList/dpTypes.ts';
 
 /** Обёртка в которой формируется провайдер данных !un-provider! */ 
-export function UniListWr() {
+export function UniListPage() {
   const provider = useMemo(() => {
     return DataProviderJson.getInstance({ unStep: 6 }) as UnPInterface<Dp5pItem>;
   }, []);

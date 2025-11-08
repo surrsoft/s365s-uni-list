@@ -10,5 +10,9 @@ export const paths = {
     uniList: {
         base: 'uni-list',
         baseSlash: '/uni-list'
+    },
+    uiDebug: {
+        base: 'ui-debug',
+        baseSlash: '/ui-debug'
     }
 } as const;
