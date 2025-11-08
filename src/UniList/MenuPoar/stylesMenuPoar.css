@@ -4,16 +4,26 @@
 }
 
 .asau54-dropdown__btn {
-    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #1b1c1f;
     font-size: 16px;
     border: none;
     cursor: pointer;
     padding: 8px;
+    border-radius: 12px;
+    background-color: #e3ebf5;
+    border: 1px solid #c1d5e8;
+    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 .asau54-dropdown__btn:hover, .asau54-dropdown__btn:focus {
-    background-color: #bed0dc;
-    border-radius: 8px;
+    background-color: #d4e0ef;
+    border-color: #b4c9df;
+    outline: none;
+    box-shadow: 0 2px 8px rgba(50, 72, 95, 0.2);
 }
 
 .asau54-dropdown__content {
@@ -25,6 +35,8 @@
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     z-index: 1;
     background-color: #f1f1f1;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 .asau54-dropdown__content button {
@@ -34,10 +46,41 @@
     color: black;
     text-decoration: none;
     border: 0;
+    background: none;
 }
 
 .asau54-dropdown__content button:hover {
     background-color: #ddd;
     cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+    .asau54-dropdown__btn {
+        color: #f4f4f5;
+        background-color: rgba(43, 45, 49, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .asau54-dropdown__btn:hover,
+    .asau54-dropdown__btn:focus {
+        background-color: rgba(73, 118, 167, 0.25);
+        border-color: rgba(148, 193, 239, 0.35);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+    }
+
+    .asau54-dropdown__content {
+        background-color: #1f1f22;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .asau54-dropdown__content button {
+        color: #f4f4f5;
+    }
+
+    .asau54-dropdown__content button:hover {
+        background-color: rgba(255, 255, 255, 0.08);
+    }
 }
 

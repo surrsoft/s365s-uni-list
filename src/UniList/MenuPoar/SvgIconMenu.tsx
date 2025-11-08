@@ -1,5 +1,3 @@
-import React from "react";
-
 const SvgIconMenu = (props: any) => (
   <svg
     id="icon"
@@ -16,14 +14,22 @@ const SvgIconMenu = (props: any) => (
     xmlSpace="preserve"
     {...props}
   >
-    <style type="text/css">{`    
-      .st0{
-        fill:none;
-      }  
+    <style type="text/css">{`
+      .st0 {
+        fill: none;
+      }
+      .asau54-menu-dot {
+        fill: #1b1c1f;
+      }
+      @media (prefers-color-scheme: dark) {
+        .asau54-menu-dot {
+          fill: #f4f4f5;
+        }
+      }
     `}</style>
-    <circle cx={16} cy={8} r={2}/>
-    <circle cx={16} cy={16} r={2}/>
-    <circle cx={16} cy={24} r={2}/>
+    <circle className="asau54-menu-dot" cx={16} cy={8} r={2} />
+    <circle className="asau54-menu-dot" cx={16} cy={16} r={2} />
+    <circle className="asau54-menu-dot" cx={16} cy={24} r={2} />
     <rect className="st0" width={32} height={32}/>
   </svg>
 );
