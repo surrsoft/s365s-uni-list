@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import type { UnFiltersUiData, UnSfData, UnInpType } from '../../UniList/dpTypes';
+import type { UnFiltersUiData, UnSfData, UnInpType } from '../../UniList/unTypes';
 import { UniListFilters } from '../../UniList/UniListFilters';
 
 const filtersUiData: UnFiltersUiData = {

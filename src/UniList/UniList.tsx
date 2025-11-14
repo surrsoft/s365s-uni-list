@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import type { UnPInterface, UnInpType } from './dpTypes';
+import type { UnPInterface, UnInpType } from './unTypes';
 import { Un1nListElemWr } from './Un1nListElemWr';
 import type { UtWithid } from '../types-ut';
 import { unLocale } from './unLocale';
@@ -29,7 +29,7 @@ export function UniList<TData extends UtWithid = UtWithid>({ dataProvider }: Un2
 
     // Управление фильтрами
     const { filters, handleFilterChange } = useUniListFilters();
-    
+
     const { data: pgData, isLoading: pgIsLoading, error: pgError, isError: pgIsError } = useQuery({
         queryKey: ['251104114700-upPackageDataGet', startIndex, filters],
         queryFn: async () => {
@@ -81,7 +81,7 @@ export function UniList<TData extends UtWithid = UtWithid>({ dataProvider }: Un2
         return <div>{unLocale.errorPrefix}{pgData.failMsg || unLocale.errorLoadFailed}</div>;
     }
 
-    console.log('!!-!!-!! 20251105214739', {pgData}); // del+
+    console.log('!!-!!-!! 20251105214739', { pgData }); // del+
     const hasMore = pgData?.hasMore || false;
     const step = dataProvider.unStepGet();
 
@@ -107,6 +107,9 @@ export function UniList<TData extends UtWithid = UtWithid>({ dataProvider }: Un2
         {/* список элементов */}
         {accumulatedData.map((el) => {
             const jsx = dataProvider.jsxGet({ item: el });
+            const custom = dataProvider.unCustomDataGet();
+            const menuData = custom.getMenuData({ id: el.id });
+
             return <Un1nListElemWr key={el.id}>
                 {jsx}
             </Un1nListElemWr>

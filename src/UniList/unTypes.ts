@@ -1,5 +1,5 @@
 import type { UnStep } from "../types";
-import type { UtNilNum, UtId, UtWithid } from "../types-ut";\
+import type { UtNilNum, UtId, UtWithid } from "../types-ut";
 
 
 /**
@@ -9,6 +9,11 @@ export interface UnPInterface<TData extends UtWithid = UtWithid> extends Un2nUiI
 
     /** !un-step! */
     unStepGet(): UnStep;
+
+    unCustomDataGet(): Un8nCustom;
+
+    /** Показывать ли меню "три точки" (!un-el-menu!) на элементах списка */
+    unMenuItemShowGet(): boolean;
 
     /** 
      * !un-getdata-fun!
@@ -29,7 +34,7 @@ export interface Un2nUiInterface<TData extends UtWithid = UtWithid> {
 
 // --- 
 
-export interface Un3nParams { start: UtNilNum; filters?: UnSfData; sort?: DpSortType; }
+export interface Un3nParams { start: UtNilNum; filters?: UnSfData; sort?: Un12nSortType; }
 
 interface Un6nFail {
     failMsg?: UtId;
@@ -106,25 +111,37 @@ export interface UnSfData {
 
 // ---
 
-export type DpSortType = 'asc' | 'desc';
+export type Un12nSortType = 'asc' | 'desc';
 
 
 /** Конфигурация */
-export interface DpConfigType {
+export interface Un11nConfigType {
     unStep?: UnStep;
+    /** Показывать ли меню "три точки" на элементах списка */
+    menuItemShow?: boolean;
     custom: Un8nCustom;
 }
 
+/** ID элемента меню */
+export type Un10nMenuItemId = UtId;
+
+/** Данные меню 
+ * 
+ * {@param onClick} и {@param onClickAsync} - обработчики клика на элемент меню, потребитель 
+ * использует один из них; если представлены оба то приоритет у асинхронного варианта;
+*/
 export interface Un9nMenuData {
     items: {
-        id: UtId;
-        title: string;
-        children: Un9nMenuData[];
+        id: Un10nMenuItemId;
+        uiTitle: string;
+        uiDesc?: string;
+        onClick?: (params: { id: Un10nMenuItemId; }) => void;
+        onClickAsync?: (params: { id: Un10nMenuItemId; }) => Promise<{ success: boolean }>;
     }[];
 }
 
 /** Сущности сильно специфичные для провайдера */
 export interface Un8nCustom {
-    getMenuData(params: { id: UtId; }): Promise<Un9nMenuData>;
+    getMenuData(params: { id: UtId; }): Un9nMenuData;
 }
 

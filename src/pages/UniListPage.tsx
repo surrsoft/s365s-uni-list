@@ -1,14 +1,26 @@
-import { useMemo } from 'react';
 import { UniList } from '../UniList/UniList.tsx';
 import { DataProviderJson } from '../UniList/DataProviderJson.tsx';
 import type { Un7nItem } from '../UniList/types.ts';
-import type { UnPInterface } from '../UniList/dpTypes.ts';
+import type { Un8nCustom, UnPInterface } from '../UniList/unTypes.ts';
 
-/** Обёртка в которой формируется провайдер данных !un-provider! */ 
+
+const custom: Un8nCustom = {
+  getMenuData: ({ id }) => {
+    return {
+      items: [
+        {
+          id,
+          uiTitle: 'Удалить',
+        },
+      ],
+    };
+  },
+};
+
+const provider = DataProviderJson.getInstance({ unStep: 6, custom }) as UnPInterface<Un7nItem>;
+
+/** Обёртка в которой формируется провайдер данных !un-provider! */
 export function UniListPage() {
-  const provider = useMemo(() => {
-    return DataProviderJson.getInstance({ unStep: 6 }) as UnPInterface<Un7nItem>;
-  }, []);
 
   return <UniList<Un7nItem> dataProvider={provider} />;
 }
