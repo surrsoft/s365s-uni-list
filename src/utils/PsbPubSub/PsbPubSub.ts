@@ -38,13 +38,14 @@ export class PsbPubSub<T1 extends string, T2 extends Record<T1, any>> {
    * @param evId - !psb-ev-id!
    * @param payload - !psb-payload!
   */
-  publish<K extends T1>(evId: K, payload: T2[K]): void {
-    (this.handlersObj[evId] || []).forEach(handler => handler(payload));
+  async publish<K extends T1>(evId: K, payload: T2[K]): Promise<void> {
+    const handlers = this.handlersObj[evId] || [];
+    await Promise.all(handlers.map(handler => Promise.resolve().then(() => handler(payload))));
   }
 }
 
 /** !psb-handler! */
-export type PsbHandlerType<T> = (event: T) => void;
+export type PsbHandlerType<T> = (event: T) => void | Promise<void>;
 
 /** !psb-ev-id! */
 export type PsbEventId = string;

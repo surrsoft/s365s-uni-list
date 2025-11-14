@@ -1,5 +1,5 @@
 import type { UnStep } from "../types";
-import type { UtNilNum, UtId, UtWithid } from "../types-ut";
+import type { UtNilNum, UtId, UtWithid } from "../types-ut";\
 
 
 /**
@@ -11,15 +11,16 @@ export interface UnPInterface<TData extends UtWithid = UtWithid> extends Un2nUiI
     unStepGet(): UnStep;
 
     /** 
+     * !un-getdata-fun!
      * Получение пакета данных !un-package!
      * ID [[251016220600]] */
-    upPackageDataGet(params: Dp1pParams): Promise<Dp2pResult<TData[]>>;
+    unPackageDataGet(params: Un3nParams): Promise<Un4nResult<TData[]>>;
 
     /** Получение данных для !un-filters-ui! */
     unInitialFiltersUiDataGet(): UnFiltersUiData;
 
     /** Удаление элемента из списка */
-    itemDelete(params: { id: UtId; }): Promise<Dp3pResult>;
+    itemDelete(params: { id: UtId; }): Promise<Un5nResult>;
 }
 
 export interface Un2nUiInterface<TData extends UtWithid = UtWithid> {
@@ -28,14 +29,14 @@ export interface Un2nUiInterface<TData extends UtWithid = UtWithid> {
 
 // --- 
 
-export interface Dp1pParams { start: UtNilNum; filters?: UnSfData; sort?: DpSortType; }
+export interface Un3nParams { start: UtNilNum; filters?: UnSfData; sort?: DpSortType; }
 
-interface Dp4pFail {
+interface Un6nFail {
     failMsg?: UtId;
     failCode?: UtId;
 }
 
-export interface Dp2pResult<TData = any> extends Dp4pFail {
+export interface Un4nResult<TData = any> extends Un6nFail {
     result: 'success' | 'fail';
     data?: TData;
     /** ошибка; когда result === 'fail' */
@@ -43,7 +44,7 @@ export interface Dp2pResult<TData = any> extends Dp4pFail {
     hasMore?: boolean;
 }
 
-export interface Dp3pResult extends Dp4pFail {
+export interface Un5nResult extends Un6nFail {
     result: 'success' | 'fail';
 }
 
@@ -111,4 +112,19 @@ export type DpSortType = 'asc' | 'desc';
 /** Конфигурация */
 export interface DpConfigType {
     unStep?: UnStep;
+    custom: Un8nCustom;
 }
+
+export interface Un9nMenuData {
+    items: {
+        id: UtId;
+        title: string;
+        children: Un9nMenuData[];
+    }[];
+}
+
+/** Сущности сильно специфичные для провайдера */
+export interface Un8nCustom {
+    getMenuData(params: { id: UtId; }): Promise<Un9nMenuData>;
+}
+

@@ -8,7 +8,7 @@
 import React from "react";
 import type { UnStep } from "../types";
 import type { UtId, UtWithid } from "../types-ut";
-import type { DpConfigType, UnPInterface, Dp3pResult, Dp2pResult, UnFiltersUiData, Dp1pParams } from "./dpTypes";
+import type { DpConfigType, UnPInterface, Un5nResult, Un4nResult, UnFiltersUiData, Un3nParams, Un8nCustom } from "./dpTypes";
 
 const JSON_SERVER_URL = 'http://localhost:22157';
 const JSON_SERVER_ITEMS_URL = `${JSON_SERVER_URL}/items`;
@@ -20,9 +20,11 @@ export class DataProviderJson<TData extends UtWithid = UtWithid> implements UnPI
     private static instance: DataProviderJson;
 
     private readonly unStep: UnStep;
+    private readonly custom: Un8nCustom;
 
     public constructor(config: DpConfigType) {
         this.unStep = config.unStep || 10;
+        this.custom = config.custom;
     }
 
     public static getInstance(config: DpConfigType): DataProviderJson {
@@ -32,11 +34,15 @@ export class DataProviderJson<TData extends UtWithid = UtWithid> implements UnPI
         return DataProviderJson.instance;
     }
 
+    unCustomDataGet() {
+        return this.custom;
+    }
+
     unStepGet(): UnStep {
         return this.unStep;
     }
 
-    async upPackageDataGet({ start, filters }: Dp1pParams): Promise<Dp2pResult<TData[]>> {
+    async unPackageDataGet({ start, filters }: Un3nParams): Promise<Un4nResult<TData[]>> {
         const limit = this.unStep;
         const limitPlus = limit + 1;
         const response = await fetch(`${JSON_SERVER_ITEMS_URL}?_start=${start}&_limit=${limitPlus}`);
@@ -59,12 +65,12 @@ export class DataProviderJson<TData extends UtWithid = UtWithid> implements UnPI
     unInitialFiltersUiDataGet(): UnFiltersUiData {
         return {
             items: [
-                
+
             ],
         };
     }
 
-    itemDelete(params: { id: UtId }): Promise<Dp3pResult> {
+    itemDelete(params: { id: UtId }): Promise<Un5nResult> {
         return Promise.resolve({
             result: 'success',
         });

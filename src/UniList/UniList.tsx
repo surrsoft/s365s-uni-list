@@ -33,7 +33,7 @@ export function UniList<TData extends UtWithid = UtWithid>({ dataProvider }: Un2
     const { data: pgData, isLoading: pgIsLoading, error: pgError, isError: pgIsError } = useQuery({
         queryKey: ['251104114700-upPackageDataGet', startIndex, filters],
         queryFn: async () => {
-            return await dataProvider.upPackageDataGet({ start: startIndex, filters });
+            return await dataProvider.unPackageDataGet({ start: startIndex, filters });
         },
     });
 
