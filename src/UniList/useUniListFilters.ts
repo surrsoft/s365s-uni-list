@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { UnSfData, UnInpType } from './unTypes';
+import type { UnSfData, UnInpType } from './types/unTypes';
 
 /**
  * Хук для управления фильтрами списка

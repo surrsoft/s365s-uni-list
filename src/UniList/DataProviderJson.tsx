@@ -8,7 +8,9 @@
 import React from "react";
 import type { UnStep } from "../types";
 import type { UtId, UtWithid } from "../types-ut";
-import type { Un11nConfigType, UnPInterface, Un5nResult, Un4nResult, UnFiltersUiData, Un3nParams, Un8nCustom } from "./unTypes";
+import type { Un11nConfigType, UnFiltersUiData, Un3nParams, Un8nCustom } from "./types/unTypes";
+import type { Un4nResult, Un22nResult } from "./types/unTypesUni";
+import type { UnPInterface } from "./types/UnPInterface";
 
 const JSON_SERVER_URL = 'http://localhost:22157';
 const JSON_SERVER_ITEMS_URL = `${JSON_SERVER_URL}/items`;
@@ -75,11 +77,13 @@ export class DataProviderJson<TData extends UtWithid = UtWithid> implements UnPI
         };
     }
 
-    itemDelete(params: { id: UtId }): Promise<Un5nResult> {
+    unItemsDelete(params: { ids: UtId[] }): Promise<Un22nResult> {
+        // TODO: реализовать удаление элементов из списка
         return Promise.resolve({
             result: 'success',
         });
     }
+
 
     jsxGet({ item }: { item: TData }): React.ReactNode {
         return <>hello {item.id}</>;

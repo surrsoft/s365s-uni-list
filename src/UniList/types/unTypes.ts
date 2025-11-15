@@ -1,33 +1,7 @@
-import type { UnStep } from "../types";
-import type { UtNilNum, UtId, UtWithid } from "../types-ut";
+import type { UnStep } from "../../types";
+import type { UtNilNum, UtId, UtWithid } from "../../types-ut";
 
-
-/**
- * !un-p-interface! - интерфейс провайдера !un-provider!
- */
-export interface UnPInterface<TData extends UtWithid = UtWithid> extends Un2nUiInterface<TData> {
-
-    /** !un-step! */
-    unStepGet(): UnStep;
-
-    unCustomDataGet(): Un8nCustom;
-
-    /** Показывать ли меню "три точки" (!un-el-menu!) на элементах списка */
-    unMenuItemShowGet(): boolean;
-
-    /** 
-     * !un-getdata-fun!
-     * Получение пакета данных !un-package!
-     * ID [[251016220600]] */
-    unPackageDataGet(params: Un3nParams): Promise<Un4nResult<TData[]>>;
-
-    /** Получение данных для !un-filters-ui! */
-    unInitialFiltersUiDataGet(): UnFiltersUiData;
-
-    /** Удаление элемента из списка */
-    itemDelete(params: { id: UtId; }): Promise<Un5nResult>;
-}
-
+// TODO: перенести в custom
 export interface Un2nUiInterface<TData extends UtWithid = UtWithid> {
     jsxGet(params: { item: TData }): React.ReactNode;
 }
@@ -35,23 +9,6 @@ export interface Un2nUiInterface<TData extends UtWithid = UtWithid> {
 // --- 
 
 export interface Un3nParams { start: UtNilNum; filters?: UnSfData; sort?: Un12nSortType; }
-
-interface Un6nFail {
-    failMsg?: UtId;
-    failCode?: UtId;
-}
-
-export interface Un4nResult<TData = any> extends Un6nFail {
-    result: 'success' | 'fail';
-    data?: TData;
-    /** ошибка; когда result === 'fail' */
-    error?: any;
-    hasMore?: boolean;
-}
-
-export interface Un5nResult extends Un6nFail {
-    result: 'success' | 'fail';
-}
 
 // --- для !un-filters-ui!
 

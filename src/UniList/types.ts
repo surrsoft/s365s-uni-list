@@ -1,4 +1,4 @@
-export interface Un7nItem {
+export interface Gb6bItem {
     id: string;
     title?: string;
     desc?: string;

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import type { UnPInterface, UnInpType } from './unTypes';
+import type { UnInpType } from './types/unTypes';
+import type { UnPInterface } from "./types/UnPInterface";
 import { Un1nListElemWr } from './Un1nListElemWr';
 import type { UtWithid } from '../types-ut';
 import { unLocale } from './unLocale';
@@ -78,7 +79,7 @@ export function UniList<TData extends UtWithid = UtWithid>({ dataProvider }: Un2
     }
 
     if (pgData && pgData.result === 'fail') {
-        return <div>{unLocale.errorPrefix}{pgData.failMsg || unLocale.errorLoadFailed}</div>;
+        return <div>{unLocale.errorPrefix}{pgData.failMsgTech || unLocale.errorLoadFailed}</div>;
     }
 
     console.log('!!-!!-!! 20251105214739', { pgData }); // del+

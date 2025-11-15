@@ -1,4 +1,4 @@
-import type { UnFInputData, UnInpType, UnSfData } from './unTypes';
+import type { UnFInputData, UnInpType, UnSfData } from './types/unTypes';
 
 interface UniListFilterInputProps {
     filter: UnFInputData;

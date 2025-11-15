@@ -1,7 +1,8 @@
 import { UniList } from '../UniList/UniList.tsx';
 import { DataProviderJson } from '../UniList/DataProviderJson.tsx';
-import type { Un7nItem } from '../UniList/types.ts';
-import type { Un8nCustom, UnPInterface } from '../UniList/unTypes.ts';
+import type { Gb6bItem } from '../UniList/types.ts';
+import type { Un8nCustom } from '../UniList/types/unTypes.ts';
+import type { UnPInterface } from "../UniList/types/UnPInterface.ts";
 
 
 const custom: Un8nCustom = {
@@ -17,10 +18,10 @@ const custom: Un8nCustom = {
   },
 };
 
-const provider = DataProviderJson.getInstance({ unStep: 6, custom }) as UnPInterface<Un7nItem>;
+const provider = DataProviderJson.getInstance({ unStep: 6, custom }) as UnPInterface<Gb6bItem>;
 
 /** Обёртка в которой формируется провайдер данных !un-provider! */
 export function UniListPage() {
 
-  return <UniList<Un7nItem> dataProvider={provider} />;
+  return <UniList<Gb6bItem> dataProvider={provider} />;
 }
